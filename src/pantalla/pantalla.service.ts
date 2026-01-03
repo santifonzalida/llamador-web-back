@@ -17,6 +17,6 @@ export class PantallaService {
 
   llamarPersona(payload: Llamable): any {
     this.llamables.push(payload);
-    return this.llamables.sort(((a, b) => b.timestamp - a.timestamp));
+    return this.llamables.sort((a, b) => b.timestamp - a.timestamp);
   }
 }
