@@ -24,10 +24,9 @@ export class PantallaGateway {
 
   @SubscribeMessage('llamable:call')
   handleLlamarPersona(client: Socket, payload: Llamable) {
-    const llamable = this.pantallaService.llamarPersona(payload);
-    // broadcast
-    this.server.emit('llamable:called', llamable[0]);
-    this.server.emit('llamable:update', this.pantallaService.getLlamables());
+    const llamables = this.pantallaService.llamarPersona(payload);
+
+    this.server.emit('llamable:called', llamables);
     return { status: 'ok' };
   }
 }

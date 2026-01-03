@@ -12,10 +12,11 @@ export class PantallaService {
   public llamables: Llamable[] = [];
 
   getLlamables(): Llamable[] {
-    return this.llamables.slice().sort((a, b) => a.timestamp - b.timestamp);
+    return this.llamables;
   }
 
   llamarPersona(payload: Llamable): any {
-    return (this.llamables = [payload]);
+    this.llamables.push(payload);
+    return this.llamables.sort(((a, b) => b.timestamp - a.timestamp));
   }
 }
