@@ -5,6 +5,7 @@ export interface Llamable {
   persona: string;
   timestamp: number;
   idPuesto: number;
+  fueLlamado: boolean;
 }
 
 @Injectable()
@@ -16,6 +17,7 @@ export class PantallaService {
   }
 
   llamarPersona(payload: Llamable): any {
+    payload.id = Date.now();
     this.llamables.push(payload);
     return this.llamables.sort((a, b) => b.timestamp - a.timestamp);
   }

@@ -1,34 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { PUESTOS_ATENCION } from './puestos.data';
 
 export interface Puesto {
   id: number;
   name: string;
   free: boolean;
-  timestamp: number;
   idClient: string;
 }
 
 @Injectable()
 export class PuestoService {
-  private puestos: Puesto[] = [
-    {
-      id: 1,
-      name: 'Puesto 1',
-      free: true,
-      timestamp: Date.now(),
-      idClient: '',
-    },
-    {
-      id: 2,
-      name: 'Puesto 2',
-      free: true,
-      timestamp: Date.now(),
-      idClient: '',
-    },
-  ];
+  private puestos: Puesto[] = PUESTOS_ATENCION;
 
   getPuestosAtencion(): Puesto[] {
-    return this.puestos.slice().sort((a, b) => a.timestamp - b.timestamp);
+    return this.puestos.sort((a,b) => a.id - b.id);
   }
 
   addPuestoAtencion(): Puesto {
@@ -36,9 +21,8 @@ export class PuestoService {
     const puesto: Puesto = {
       id: puestosLength == 0 ? 1 : this.puestos[this.puestos.length - 1].id + 1,
       free: true,
-      timestamp: Date.now(),
-      name: `Puesto ${puestosLength == 0 ? 1 : this.puestos[this.puestos.length - 1].id + 1}`,
       idClient: '',
+      name: `Puesto ${puestosLength == 0 ? 1 : this.puestos[this.puestos.length - 1].id + 1}`,
     };
     this.puestos.push(puesto);
     return puesto;
@@ -60,7 +44,6 @@ export class PuestoService {
     this.puestos.forEach((puesto: Puesto) => {
       if (puesto.id == idPuesto) {
         puesto.free = false;
-        puesto.idClient = idClient;
       }
     });
   }
@@ -69,7 +52,6 @@ export class PuestoService {
     this.puestos.forEach((puesto: Puesto) => {
       if (puesto.id == idPuesto) {
         puesto.free = true;
-        puesto.idClient = '';
       }
     });
   }
