@@ -34,7 +34,6 @@ export class PuestoGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleAdd() {
     const puesto = this.puestoService.addPuestoAtencion();
     // broadcast
-    this.server.emit('puesto:added', puesto);
     this.server.emit('puesto:update', this.puestoService.getPuestosAtencion());
     return { status: 'ok' };
   }
@@ -44,7 +43,6 @@ export class PuestoGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const respCodigo = this.puestoService.deletePuestoAtencion(payload.id);
 
     if (respCodigo == 200) {
-      this.server.emit('puesto:deleted', respCodigo);
       this.server.emit(
         'puesto:update',
         this.puestoService.getPuestosAtencion(),
@@ -60,7 +58,6 @@ export class PuestoGateway implements OnGatewayConnection, OnGatewayDisconnect {
       client.id,
     );
     // broadcast
-    this.server.emit('puesto:taked', puesto);
     this.server.emit('puesto:update', this.puestoService.getPuestosAtencion());
     return { status: 'ok' };
   }
@@ -69,7 +66,6 @@ export class PuestoGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleLiberate(client: Socket, payload: { id: number }) {
     const puesto = this.puestoService.liberarPuestoAtencion(payload.id);
     // broadcast
-    this.server.emit('puesto:taked', puesto);
     this.server.emit('puesto:update', this.puestoService.getPuestosAtencion());
     return { status: 'ok' };
   }

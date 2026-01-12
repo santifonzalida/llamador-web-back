@@ -44,6 +44,7 @@ export class PuestoService {
     this.puestos.forEach((puesto: Puesto) => {
       if (puesto.id == idPuesto) {
         puesto.free = false;
+        puesto.idClient = idClient;
       }
     });
   }
@@ -52,6 +53,7 @@ export class PuestoService {
     this.puestos.forEach((puesto: Puesto) => {
       if (puesto.id == idPuesto) {
         puesto.free = true;
+        puesto.idClient = '';
       }
     });
   }
@@ -78,7 +80,7 @@ export class PuestoService {
     } else {
       resp.mensaje =
         'El cliente no tenia un puesto asignado. Desconectado correctamente';
-      resp.codigo = 404;
+      resp.codigo = 201;
     }
 
     return resp;
